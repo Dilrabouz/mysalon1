@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://127.0.0.1:5500/boot.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Navigation</title>
+  <link href="./bizning salon_files/bootstrap.min.css" rel="stylesheet">
+  <script src="./bizning salon_files/bootstrap.bundle.min.js.загрузка"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: url('salon1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .nav-container {
+      position: relative;
+      background: rgba(255, 182, 193, 0.85);
+      padding: 8px;
+      border-radius: 40px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .nav-container .nav-link {
+      position: relative;
+      z-index: 2;
+      color: white;
+      font-weight: 600;
+      border-radius: 40px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-container .nav-link.active {
+      color: #e91e63 !important;
+    }
+
+    .nav-indicator {
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      width: calc(33.333% - 12px);
+      background: white;
+      border-radius: 40px;
+      z-index: 1;
+      transition: left 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-container position-relative">
+    <div class="nav-indicator" id="navIndicator" style="left: calc(0% + 8px);"></div>
+
+    <a class="nav-link text-center flex-fill active" href="http://127.0.0.1:5500/home.html" onclick="moveIndicator(0)">Home</a>
+    <a class="nav-link text-center flex-fill" href="http://127.0.0.1:5500/profile.html" onclick="moveIndicator(1)">Profile</a>
+    <a class="nav-link text-center flex-fill" href="http://127.0.0.1:5500/contact.html" onclick="moveIndicator(2)">Contact</a>
+  </div>
+
+  <script>
+    function moveIndicator(index) {
+      const indicator = document.getElementById("navIndicator");
+      const percentage = index * 33.333;
+      indicator.style.left = `calc(${percentage}% + 8px)`;
+
+      // Active class switching
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach((link, i) => {
+        link.classList.remove('active');
+        if (i === index) link.classList.add('active');
+      });
+    }
+
+    // Initialize position
+    window.addEventListener('DOMContentLoaded', () => moveIndicator(0));
+  </script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
